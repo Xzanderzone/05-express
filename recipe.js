@@ -6,6 +6,7 @@ const recipe = [
     guide: ["order", "it", "online"],
     tag: "vegan",
     tag: ["veal", "pasta"],
+    count: 0,
   },
   {
     name: "martini",
@@ -14,6 +15,7 @@ const recipe = [
     guide: ["order", "it", "online"],
     tag: "chicken",
     tag: ["veal", "pasta"],
+    count: 10,
   },
   {
     name: "margarita",
@@ -21,6 +23,7 @@ const recipe = [
     ingredients: ["lots", "of", "stuff", "but", "no", "idea", "tbh"],
     guide: ["order", "it", "online"],
     tag: ["veal", "pasta"],
+    count: 15,
   },
   {
     name: "manhattan",
@@ -29,6 +32,7 @@ const recipe = [
     guide: ["order", "it", "online"],
     tag: ["mixed meat", "pasta"],
     favorite: true,
+    count: 0,
   },
   {
     name: "earl Grey tea",
@@ -37,6 +41,7 @@ const recipe = [
     guide: ["order", "it", "online"],
     tag: ["mixed meat", "pasta"],
     favorite: true,
+    count: 0,
   },
   {
     name: "herbal tea",
@@ -46,6 +51,7 @@ const recipe = [
     tag: "fruit",
     tag: ["veal", "pasta"],
     favorite: false,
+    count: 2,
   },
   {
     name: "ginger ale",
@@ -54,6 +60,7 @@ const recipe = [
     guide: ["order", "it", "online"],
     tag: ["veal", "vegatable"],
     favorite: false,
+    count: 69,
   },
   {
     name: "lemonade",
@@ -62,6 +69,7 @@ const recipe = [
     guide: ["order", "it", "online"],
     tag: ["veal", "potato"],
     favorite: true,
+    count: 420,
   },
   {
     name: "traffic Light",
@@ -70,6 +78,7 @@ const recipe = [
     guide: ["order", "it", "online"],
     tag: ["veal", "rice"],
     favorite: true,
+    count: 0,
   },
 ];
 export default recipe;
