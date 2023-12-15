@@ -4,6 +4,7 @@ import "dotenv/config";
 const API = process.env.API_KEY;
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.use(json());
 
 const checkApiKey = (req, res, next) => {
   if (req.params.api == API) next();
@@ -11,24 +12,36 @@ const checkApiKey = (req, res, next) => {
 };
 
 app.get("/", (req, res) => {
-  res.send({ code: 200, msg: "ok" });
+  console.log("index");
+  res.send({ code: 200, msg: "type /info in the url for instructions" });
 });
 app.get("/info", (req, res) => {
-  res.send(`Welcome to the 'food'API ! \r\n enter your api-key in the url /mykey/ \n
-    specify where youd like to go( /posts ) and the id or name youd like to retrieve /hugo \n
-    it should look something like http://localhost:3000/2007/posts/hugo`);
+  res.send(
+    "Welcome to the 'food'API ! \r\n enter your api-key in the url /mykey/ \r\n specify where youd like to go( /posts,/favorite ) and the id or name youd like to retrieve /hugo \r\n it should look something like http://localhost:3000/2007/posts/hugo"
+  );
 });
-app.get("/posts", (req, res) => {
+app.get("/posts", checkApiKey, (req, res) => {
   res.send(recipe);
 });
-app.post("/posts/new", checkApiKey, (req, res) => {
-  const newPost = {
-    name: req.body.name,
-    time: req.body.time,
-    ingredients: req.body.ingredients,
-    guide: req.body.guide,
-  };
-  recipe.push(newPost);
+// app.post("/posts/new", checkApiKey, (req, res) => {
+//   const newPost = {
+//     name: req.body.name,
+//     time: req.body.time,
+//     ingredients: req.body.ingredients,
+//     guide: req.body.guide,
+//     favorite:req.body.favorite
+//   };
+//   recipe.push(newPost);
+// });
+
+app.get("/:api/favorite", checkApiKey, (req, res) => {
+  console.log("faorite");
+  let post = [];
+  for (let i = 0; i < recipe.length; i++)
+    if (recipe[i].favorite) post.push(recipe[i]);
+  console.log(post);
+  if (post == undefined) res.send("No favorites set!");
+  else res.send(post);
 });
 app.get(`/:api/posts/:name`, checkApiKey, (req, res) => {
   let post = [];

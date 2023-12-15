@@ -28,6 +28,7 @@ const recipe = [
     ingredients: ["lots", "of", "stuff", "but", "no", "idea", "tbh"],
     guide: ["order", "it", "online"],
     tag: ["mixed meat", "pasta"],
+    favorite: true,
   },
   {
     name: "earl Grey tea",
@@ -35,6 +36,7 @@ const recipe = [
     ingredients: ["lots", "of", "stuff", "but", "no", "idea", "tbh"],
     guide: ["order", "it", "online"],
     tag: ["mixed meat", "pasta"],
+    favorite: true,
   },
   {
     name: "herbal tea",
@@ -43,6 +45,7 @@ const recipe = [
     guide: ["order", "it", "online"],
     tag: "fruit",
     tag: ["veal", "pasta"],
+    favorite: false,
   },
   {
     name: "ginger ale",
@@ -50,6 +53,7 @@ const recipe = [
     ingredients: ["lots", "of", "stuff", "but", "no", "idea", "tbh"],
     guide: ["order", "it", "online"],
     tag: ["veal", "vegatable"],
+    favorite: false,
   },
   {
     name: "lemonade",
@@ -57,6 +61,7 @@ const recipe = [
     ingredients: ["lots", "of", "stuff", "but", "no", "idea", "tbh"],
     guide: ["order", "it", "online"],
     tag: ["veal", "potato"],
+    favorite: true,
   },
   {
     name: "traffic Light",
@@ -64,6 +69,7 @@ const recipe = [
     ingredients: ["lots", "of", "stuff", "but", "no", "idea", "tbh"],
     guide: ["order", "it", "online"],
     tag: ["veal", "rice"],
+    favorite: true,
   },
 ];
 export default recipe;
