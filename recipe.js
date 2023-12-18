@@ -1,11 +1,11 @@
-const recipe = [
+export const recipe = [
   {
     name: "hugo",
     time: 75,
     ingredients: ["lots", "of", "stuff", "but", "no", "idea", "tbh"],
     guide: ["order", "it", "online"],
-    tag: "vegan",
-    tag: ["veal", "pasta"],
+    tag: ["chicken", "cheese", "pasta"],
+    favorite: true,
     count: 0,
   },
   {
@@ -13,8 +13,8 @@ const recipe = [
     time: 15,
     ingredients: ["lots", "of", "stuff", "but", "no", "idea", "tbh"],
     guide: ["order", "it", "online"],
-    tag: "chicken",
     tag: ["veal", "pasta"],
+    favorite: false,
     count: 10,
   },
   {
@@ -23,6 +23,7 @@ const recipe = [
     ingredients: ["lots", "of", "stuff", "but", "no", "idea", "tbh"],
     guide: ["order", "it", "online"],
     tag: ["veal", "pasta"],
+    favorite: false,
     count: 15,
   },
   {
@@ -81,4 +82,14 @@ const recipe = [
     count: 0,
   },
 ];
-export default recipe;
+export const updateCount = (id, increment = 1) => {
+  if (id > 0 && id < recipe.length && typeof increment == "integer")
+    recipe[id].count += increment;
+};
+export const addRecipe = (name, time, ingredients, guide, tag, favorite) => {
+  recipe.forEach((element) => {
+    if (element.name === name) return false;
+  });
+  recipe.push({ name, time, ingredients, guide, tag, favorite });
+  return true;
+};

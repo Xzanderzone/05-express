@@ -1,10 +1,9 @@
-import recipe from "./recipe.js";
 import express from "express";
 import "dotenv/config";
+import { addRecipe, updateCount, recipe } from "./recipe.js";
 const API = process.env.API_KEY;
 const app = express();
 const PORT = process.env.PORT || 3000;
-
 const checkApiKey = (req, res, next) => {
   if (req.params.api == API) next();
   else res.status(403).send(`incorrect api key!`);
@@ -15,20 +14,38 @@ app.get("/", (req, res) => {
   res.send({ code: 200, msg: "type /info in the url for instructions" });
 });
 app.get("/info", (req, res) => {
-  res.send(
-    "Welcome to the 'food'API ! \r\n enter your api-key in the url /mykey/ \r\n specify where youd like to go( /posts,/favorite ) and the id or name youd like to retrieve /hugo \r\n it should look something like http://localhost:3000/your-key/posts/hugo"
-  );
+  res.send({
+    code: 200,
+    msg: "Welcome to the 'food'API ! \r\n enter your api-key in the url /mykey/ \r\n specify where youd like to go( /posts,/favorite ) and the id or name youd like to retrieve /hugo \r\n it should look something like http://localhost:3000/your-key/posts/hugo",
+  });
 });
-// app.post("/posts/new", checkApiKey, (req, res) => {
-//   const newPost = {
-//     name: req.body.name,
-//     time: req.body.time,
-//     ingredients: req.body.ingredients,
-//     guide: req.body.guide,
-//     favorite:req.body.favorite
-//   };
-//   recipe.push(newPost);
-// });
+//works but not permanent (gone when server reboots)
+addRecipe(
+  "belgian fries with mexicano",
+  10,
+  ["fries", "mexicano"],
+  [
+    "plug in deepfrier and let it heat up",
+    "throw the food in there",
+    "now take it out.",
+    "enjoy good food",
+  ],
+  ["divine", "healthy"]
+);
+app.post("/posts/new", checkApiKey, (req, res) => {
+  if (
+    addRecipe(
+      req.body.name,
+      req.body.time,
+      req.body.ingredients,
+      req.body.guide,
+      req.body.tag,
+      req.body.favorite
+    )
+  )
+    res.send(`recipe ${req.body.name} added successfully!`);
+  else res.send(`something went wrong! recipe already exists`);
+});
 
 app.get("/:api/posts", checkApiKey, (req, res) => {
   console.log("recipe");
@@ -58,7 +75,7 @@ app.get(`/:api/posts/:name`, checkApiKey, favorite, popular, (req, res) => {
   const id = parseInt(req.params.name);
   if (id <= recipe.length && id >= 0) {
     post = recipe[id];
-    recipe[id].count++;
+    updateCount(id, 1); //still not a permenent change (same as recipe[id].count++ )
   } else
     recipe.forEach((element) => {
       if (element.name.indexOf(req.params.name) != -1) {
@@ -66,7 +83,10 @@ app.get(`/:api/posts/:name`, checkApiKey, favorite, popular, (req, res) => {
         element.count++;
       }
     });
-  if (post == undefined) res.status(404).send("post not found!");
+  if (post == undefined)
+    res
+      .status(404)
+      .send("post not found! are you sure you typed it correctly?");
   else res.send(post);
 });
 
